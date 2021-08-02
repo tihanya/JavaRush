@@ -1,0 +1,34 @@
+package com.javarush.task.task18.task1809;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+/* 
+Реверс файла
+*/
+
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String inputFileName = reader.readLine();
+        String outputFileName = reader.readLine();
+
+        try(FileInputStream inputStream = new FileInputStream(inputFileName);
+            FileOutputStream outputStream = new FileOutputStream(outputFileName)) {
+
+            List<Integer> inputBytes = new ArrayList<>();
+
+            while (inputStream.available() > 0) {
+                inputBytes.add(inputStream.read());
+            }
+
+            Collections.reverse(inputBytes);
+
+            for (Integer someByte : inputBytes) {
+                outputStream.write(someByte);
+            }
+        }
+    }
+}
