@@ -1,0 +1,29 @@
+package com.javarush.task.task18.task1808;
+
+import java.io.*;
+
+/* 
+Разделение файла
+*/
+
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String inputFile = reader.readLine();
+        String firstPart = reader.readLine();
+        String secondPart = reader.readLine();
+
+        try (FileInputStream inputStream = new FileInputStream(inputFile);
+             FileOutputStream outputStream1 = new FileOutputStream(firstPart);
+             FileOutputStream outputStream2 = new FileOutputStream(secondPart)) {
+            int halfOfLength = (inputStream.available() + 1) / 2;
+            int numOfChar = 0;
+            while (inputStream.available() > 0) {
+                if (numOfChar < halfOfLength) {
+                    outputStream1.write(inputStream.read());
+                    numOfChar++;
+                } else outputStream2.write(inputStream.read());
+            }
+        }
+    }
+}
